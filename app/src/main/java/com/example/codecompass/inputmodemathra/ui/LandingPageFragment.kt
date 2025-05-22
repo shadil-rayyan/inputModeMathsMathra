@@ -41,7 +41,7 @@ class LandingPageFragment : Fragment() {
     ): View? {
         binding = FragmentLandingpageBinding.inflate(inflater, container, false)
 
-        binding!!.quickPlayButton.setOnClickListener { v ->
+        binding!!.dialpadButton.setOnClickListener { v ->
             if (navigationListener != null) {
                 navigationListener!!.loadFragment(
                     MathQuizFragment(),
@@ -50,32 +50,32 @@ class LandingPageFragment : Fragment() {
             }
         }
 
-//        binding!!.learningModeButton.setOnClickListener { v ->
-//            if (navigationListener != null) {
-//                navigationListener!!.loadFragment(
-//                    LearningPageFragment(),
-//                    FragmentTransaction.TRANSIT_FRAGMENT_OPEN
-//                )
-//            }
-//        }
+        binding!!.fourmcqButton.setOnClickListener { v ->
+            if (navigationListener != null) {
+                navigationListener!!.loadFragment(
+                    MCQFragment(),
+                    FragmentTransaction.TRANSIT_FRAGMENT_OPEN
+                )
+            }
+        }
 //
-//        binding!!.gameModeButton.setOnClickListener { v ->
-//            if (navigationListener != null) {
-//                navigationListener!!.loadFragment(
-//                    DashboardFragment(),
-//                    FragmentTransaction.TRANSIT_FRAGMENT_OPEN
-//                )
-//            }
-//        }
-//
-//        binding!!.userGuideButton.setOnClickListener { v ->
-//            if (navigationListener != null) {
-//                navigationListener!!.loadFragment(
-//                    UserGuideFragment(),
-//                    FragmentTransaction.TRANSIT_FRAGMENT_OPEN
-//                )
-//            }
-//        }
+        binding!!.fivemcqButton.setOnClickListener { v ->
+            if (navigationListener != null) {
+                navigationListener!!.loadFragment(
+                    MCQFiveFragment(),
+                    FragmentTransaction.TRANSIT_FRAGMENT_OPEN
+                )
+            }
+        }
+
+        binding!!.tenmcqButton.setOnClickListener { v ->
+            if (navigationListener != null) {
+                navigationListener!!.loadFragment(
+                    MCQTENFragment(),
+                    FragmentTransaction.TRANSIT_FRAGMENT_OPEN
+                )
+            }
+        }
 //
 //        binding!!.settingsButton.setOnClickListener { v ->
 //            if (navigationListener != null) {

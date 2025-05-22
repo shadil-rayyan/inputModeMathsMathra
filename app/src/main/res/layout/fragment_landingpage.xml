@@ -4,146 +4,228 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:contentDescription="Home page -Welcome to Math Manthra Your learning mentor there are 4 option for you quick play, learning mode, game mode, user guide, settings and exit button ">
+    android:contentDescription="@string/home_page_content_description">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:gravity="center"
-        android:padding="20dp"
-        android:contentDescription="Main Menu Options">
+        android:orientation="vertical"
+        android:padding="20dp">
 
-        <!-- Quick Play Button -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/quickPlayButton"
+        <!-- Row 1 -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="10dp"
-            app:cardBackgroundColor="@color/button"
-            android:focusable="true"
-            android:contentDescription="Quick Play Button. Starts a quick game with default settings.">
+            android:orientation="horizontal"
+            android:weightSum="2">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/quick_play_button"
-                android:textColor="@color/primaryText"
-                android:textSize="22sp"
-                android:textStyle="bold" />
-        </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/dialpadButton"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_marginEnd="7dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/dialpad_content_description"
+                android:focusable="true"
+                app:cardBackgroundColor="@color/button"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="10dp">
 
-        <!-- Learning Mode Button -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/learningModeButton"
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/dialpad"
+                    android:textColor="@color/primaryText"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/fourmcqButton"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="7dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/four_mcq_content_description"
+                android:focusable="true"
+                app:cardBackgroundColor="@color/button"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="10dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/four_mcq"
+                    android:textColor="@color/primaryText"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <!-- Row 2 -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="10dp"
-            app:cardBackgroundColor="@color/button"
-            android:focusable="true"
-            android:contentDescription="Learning Mode Button. Enter Learning Mode to practice and improve skills.">
+            android:orientation="horizontal"
+            android:weightSum="2">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/learning_mode_button"
-            android:textColor="@color/primaryText"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-        </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/fivemcqButton"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_marginEnd="7dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/five_mcq_content_description"
+                android:focusable="true"
+                app:cardBackgroundColor="@color/button"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="10dp">
 
-        <!-- Game Mode Button -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/gameModeButton"
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/five_mcq"
+                    android:textColor="@color/primaryText"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/tenmcqButton"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="7dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/ten_mcq_content_description"
+                android:focusable="true"
+                app:cardBackgroundColor="@color/button"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="10dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/ten_mcq"
+                    android:textColor="@color/primaryText"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <!-- Row 3 -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="10dp"
-            app:cardBackgroundColor="@color/button"
-            android:focusable="true"
-            android:contentDescription="Game Mode Button. Compete in challenges and improve your score.">
+            android:orientation="horizontal"
+            android:weightSum="2">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/game_mode_button"
-            android:textColor="@color/primaryText"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-        </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/numericDialButton"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_marginEnd="7dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/numeric_dial_content_description"
+                android:focusable="true"
+                app:cardBackgroundColor="@color/button"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="10dp">
 
-        <!-- User Guide Button -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/userGuideButton"
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/numeric_dial"
+                    android:textColor="@color/primaryText"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/spinnersButton"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="7dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/spinner_content_description"
+                android:focusable="true"
+                app:cardBackgroundColor="@color/button"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="10dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/spinner"
+                    android:textColor="@color/primaryText"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+        <!-- Row 4 -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="10dp"
-            app:cardBackgroundColor="@color/button"
-            android:focusable="true"
-            android:contentDescription="User Guide Button. Instructions and tips for using this app.">
+            android:orientation="horizontal"
+            android:weightSum="2">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/user_guide_button"
-            android:textColor="@color/primaryText"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-        </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/SettingsButtons"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_marginEnd="7dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/settings_content_description"
+                android:focusable="true"
+                app:cardBackgroundColor="@color/button"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="10dp">
 
-        <!-- Settings Button -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/settingsButton"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_marginBottom="15dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="10dp"
-            app:cardBackgroundColor="@color/button"
-            android:focusable="true"
-            android:contentDescription="Settings Button. Adjust preferences and configure app settings.">
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/settings"
+                    android:textColor="@color/primaryText"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+            </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/settings_button"
-            android:textColor="@color/primaryText"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-        </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/quitButton"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="7dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/quit_button_content_description"
+                android:focusable="true"
+                app:cardBackgroundColor="@color/button"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="10dp">
 
-        <!-- Quit Button -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/quitButton"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="10dp"
-            app:cardBackgroundColor="@color/button"
-            android:focusable="true"
-            android:contentDescription="Quit Button. Exit the app. You will be prompted for confirmation.">
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/quit_button"
+                    android:textColor="@color/primaryText"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+            </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/quit_button"
-            android:textColor="@color/primaryText"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-        </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
 
     </LinearLayout>
 

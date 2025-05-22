@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:contentDescription="Home page -Welcome to Math Manthra Your learning mentor there are 4 option for you quick play, learning mode, game mode, user guide, settings and exit button ">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="20dp"
+        android:contentDescription="Main Menu Options">
+
+        <!-- Quick Play Button -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/quickPlayButton"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginBottom="15dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp"
+            app:cardBackgroundColor="@color/button"
+            android:focusable="true"
+            android:contentDescription="Quick Play Button. Starts a quick game with default settings.">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/quick_play_button"
+                android:textColor="@color/primaryText"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Learning Mode Button -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/learningModeButton"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginBottom="15dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp"
+            app:cardBackgroundColor="@color/button"
+            android:focusable="true"
+            android:contentDescription="Learning Mode Button. Enter Learning Mode to practice and improve skills.">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/learning_mode_button"
+            android:textColor="@color/primaryText"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Game Mode Button -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/gameModeButton"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginBottom="15dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp"
+            app:cardBackgroundColor="@color/button"
+            android:focusable="true"
+            android:contentDescription="Game Mode Button. Compete in challenges and improve your score.">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/game_mode_button"
+            android:textColor="@color/primaryText"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- User Guide Button -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/userGuideButton"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginBottom="15dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp"
+            app:cardBackgroundColor="@color/button"
+            android:focusable="true"
+            android:contentDescription="User Guide Button. Instructions and tips for using this app.">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/user_guide_button"
+            android:textColor="@color/primaryText"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Settings Button -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/settingsButton"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginBottom="15dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp"
+            app:cardBackgroundColor="@color/button"
+            android:focusable="true"
+            android:contentDescription="Settings Button. Adjust preferences and configure app settings.">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/settings_button"
+            android:textColor="@color/primaryText"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Quit Button -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/quitButton"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="10dp"
+            app:cardBackgroundColor="@color/button"
+            android:focusable="true"
+            android:contentDescription="Quit Button. Exit the app. You will be prompted for confirmation.">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/quit_button"
+            android:textColor="@color/primaryText"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+</FrameLayout>

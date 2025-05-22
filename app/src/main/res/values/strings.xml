@@ -1,0 +1,67 @@
+<resources>
+    <!-- Button Labels -->
+    <string name="quick_play_button">Quick Play</string>
+    <string name="learning_mode_button">Learning Mode</string>
+    <string name="game_mode_button">Game Mode</string>
+    <string name="user_guide_button">User Guide</string>
+    <string name="settings_button">Settings</string>
+    <string name="quit_button">Quit</string>
+
+    <!-- Error Messages -->
+    <string name="error_fragment_navigation"> must implement FragmentNavigation</string>
+
+
+    <string name="settings_title">Settings</string>
+
+    <!-- Music Volume Section -->
+    <string name="music_volume_label">Music Volume</string>
+    <string name="music_volume_decrease">-</string>
+    <string name="music_volume_value">24</string>
+    <string name="music_volume_increase">+</string>
+
+    <!-- Speech Volume Section -->
+    <string name="speech_volume_label">Speech Volume</string>
+    <string name="speech_volume_decrease">-</string>
+    <string name="speech_volume_value">24</string>
+    <string name="speech_volume_increase">+</string>
+
+    <!-- Background Music Toggle -->
+    <string name="background_music_toggle">Enable Background Music</string>
+
+    <!-- Font Size Section -->
+    <string name="font_size_label">Font Size</string>
+    <string name="font_size_decrease">-</string>
+    <string name="font_size_value">24</string>
+    <string name="font_size_increase">+</string>
+
+    <!-- Theme Mode Section -->
+    <string name="theme_label">Theme Mode</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_system">System</string>
+
+    <!-- Difficulty Level Section -->
+    <string name="difficulty_label">Difficulty Level</string>
+    <string name="difficulty_easy">Easy</string>
+    <string name="difficulty_medium">Medium</string>
+    <string name="difficulty_hard">Hard</string>
+
+    <!-- Language Section -->
+    <string name="localization_label">Select Language</string>
+
+    <!-- Reset Settings -->
+    <string name="reset_settings_button">Reset Settings</string>
+    <string-array name="language_levels">
+        <item>English</item>
+        <item>Spanish</item>
+        <!-- Add more languages here -->
+    </string-array>
+    <string name="language">Language</string>
+    <string name="english">English</string>
+    <string name="spanish">Spanish</string>
+
+    <string name="accessibility_service_description">
+    Provides spoken feedback for users with visual impairments.
+</string>
+
+</resources>

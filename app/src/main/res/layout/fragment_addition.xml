@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".ui.AdditionFragment"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:contentDescription="Addition-based math quiz. Solve the problem and enter your answer.">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="50dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <!-- Question Text -->
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/question_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="There were 20 books on the shelf. The librarian added 15 more books. How many books are on the shelf now?"
+            android:textSize="24sp"
+            android:layout_margin="10dp"
+            android:textColor="@color/primaryText"
+            android:importantForAccessibility="yes"
+            android:contentDescription="Addition question display." />
+
+        <!-- Answer Input Field -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxBackgroundMode="outline"
+            android:textColor="@color/primaryText"
+            app:boxBackgroundColor="@color/background"
+            android:importantForAccessibility="yes"
+            android:contentDescription="Answer input field. Type your answer in numbers.">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/answer_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Your Answer Here"
+                android:textColorHint="@color/primaryText"
+                android:textColor="@color/background"
+                android:backgroundTint="@color/primaryText"
+                android:importantForAccessibility="yes"
+                android:inputType="number"
+                android:contentDescription="Enter your answer in numbers only. Example: 35 or 42."/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Submit Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/submit_answer_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:textSize="24sp"
+            android:text="Submit"
+            android:textColor="@color/primaryText"
+            android:backgroundTint="@color/button"
+            android:importantForAccessibility="yes"
+            android:contentDescription="Submit button. Tap to check your answer." />
+    </LinearLayout>
+</FrameLayout>

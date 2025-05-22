@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base Colors -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Surface Colors -->
+    <color name="background">#121212</color>       <!-- Darker background -->
+    <color name="surface">#1E1E1E</color>          <!-- Elevated surfaces -->
+    <color name="surface_variant">#2D2D2D</color>  <!-- Distinct contrast -->
+
+    <!-- Text Colors -->
+    <color name="primaryText">#FFFFFF</color>      <!-- High contrast -->
+    <color name="secondaryText">#B3B3B3</color>    <!-- Meets 4.5:1 ratio -->
+    <color name="disabledText">#6D6D6D</color>     <!-- For disabled states -->
+
+    <!-- Primary Colors -->
+    <color name="primary">#6750A4</color>          <!-- Accessible purple -->
+    <color name="primary_variant">#7F67BE</color>
+    <color name="on_primary">#FFFFFF</color>       <!-- Text on primary -->
+
+    <!-- Secondary Colors -->
+    <color name="secondary">#958DA5</color>        <!-- Complementary accent -->
+    <color name="secondary_variant">#B0A8B9</color>
+
+    <!-- Semantic Colors -->
+    <color name="error">#F2B8B5</color>            <!-- Soft red (4.8:1 ratio) -->
+    <color name="error_container">#8C1D18</color>
+    <color name="success">#A5D6A7</color>          <!-- High contrast green -->
+    <color name="warning">#FFE082</color>          <!-- Amber with good contrast -->
+
+    <!-- Interactive Elements -->
+    <color name="button">#7F67BE</color>           <!-- Primary color variant -->
+    <color name="button_text">#FFFFFF</color>
+
+    <color name="blue">#012D74</color>
+    <color name="lightBlue">#0096E7</color>
+</resources>

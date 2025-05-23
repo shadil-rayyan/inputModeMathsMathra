@@ -29,4 +29,9 @@
 
     <string name="quit_button">Quit</string>
     <string name="quit_button_content_description">Quit button. Exit the app. You will be prompted for confirmation.</string>
+
+    <!-- settings -->
+    <string name="select_language">Select Language</string>
+    <string name="select_language_dropdown">Language selection dropdown</string>
+
 </resources>

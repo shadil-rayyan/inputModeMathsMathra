@@ -44,6 +44,7 @@ public class MathQuizFragment extends Fragment {
         return binding.getRoot();
     }
 
+
     private void generateNewQuestion() {
         int numbers[] = random.generateAdditionValues(Difficulty.EASY);
         String questionText = numbers[0] + " + " + numbers[1] + " = ?";

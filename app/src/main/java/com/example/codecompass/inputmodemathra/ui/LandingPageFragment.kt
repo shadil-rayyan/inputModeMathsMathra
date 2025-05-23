@@ -76,15 +76,24 @@ class LandingPageFragment : Fragment() {
                 )
             }
         }
-//
-//        binding!!.settingsButton.setOnClickListener { v ->
-//            if (navigationListener != null) {
-//                navigationListener!!.loadFragment(
-//                    SettingFragment(),
-//                    FragmentTransaction.TRANSIT_FRAGMENT_OPEN
-//                )
-//            }
-//        }
+
+        binding!!.spinnersButton.setOnClickListener { v ->
+            if (navigationListener != null) {
+                navigationListener!!.loadFragment(
+                    SpinnerFragment(),
+                    FragmentTransaction.TRANSIT_FRAGMENT_OPEN
+                )
+            }
+        }
+
+        binding!!.SettingsButtons.setOnClickListener { v ->
+            if (navigationListener != null) {
+                navigationListener!!.loadFragment(
+                    SettingsFragment(),
+                    FragmentTransaction.TRANSIT_FRAGMENT_OPEN
+                )
+            }
+        }
 
         binding!!.quitButton.setOnClickListener { v ->
             requireActivity().finish() // Quit the app

@@ -86,6 +86,15 @@ class LandingPageFragment : Fragment() {
             }
         }
 
+
+        binding!!.numericDialButton.setOnClickListener { v ->
+            if (navigationListener != null) {
+                navigationListener!!.loadFragment(
+                    NumericDialpadFragment(),
+                    FragmentTransaction.TRANSIT_FRAGMENT_OPEN
+                )
+            }
+        }
         binding!!.SettingsButtons.setOnClickListener { v ->
             if (navigationListener != null) {
                 navigationListener!!.loadFragment(

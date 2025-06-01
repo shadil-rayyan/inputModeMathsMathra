@@ -1,14 +1,16 @@
 package com.example.codecompass.inputmodemathra.ui
 
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.accessibility.AccessibilityEvent
 import android.view.inputmethod.EditorInfo
-import android.widget.TextView
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.codecompass.inputmodemathra.R
@@ -38,49 +40,64 @@ class MathQuizFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        // When "Done" is pressed on dial pad
+        // Submit on IME action (Done on keyboard)
         binding.answerEt.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 submitAnswer()
                 true
-            } else {
-                false
-            }
+            } else false
         }
 
-        // On click Submit
+        // Submit on button click
         binding.submitAnswerBtn.setOnClickListener {
             submitAnswer()
+        }
+
+        // Repeat question on tap or long press
+        binding.questionTv.setOnClickListener {
+            binding.questionTv.announceForAccessibility("Repeating. ${binding.questionTv.text}")
+        }
+        binding.questionTv.setOnLongClickListener {
+            binding.questionTv.announceForAccessibility("Repeating. ${binding.questionTv.text}")
+            true
         }
     }
 
     private fun submitAnswer() {
         val answerText = binding.answerEt.text.toString()
-        if (answerText.isEmpty()) return
-
-        val userAnswer = answerText.toIntOrNull()
+        val userAnswer = answerText.toIntOrNull() ?: return
         val isCorrect = userAnswer == currentAnswer
         showResultDialog(isCorrect)
     }
 
     private fun generateNewQuestion() {
         if (questionCount >= totalQuestions) {
-            // Go back to previous screen or home
-            requireActivity().finish() // or any other navigation logic you have
+            parentFragmentManager.popBackStack()
             return
         }
 
         val numbers = random.generateAdditionValues(Difficulty.EASY)
         currentAnswer = numbers[2]
         val questionText = "${numbers[0]} + ${numbers[1]} = ?"
-        val questionDescription = "Math question. ${numbers[0]} plus ${numbers[1]} equals what? Double tap to repeat."
+        val questionDescription = "Math question. ${numbers[0]} plus ${numbers[1]} equals what?"
 
         binding.questionTv.text = questionText
         binding.questionTv.contentDescription = questionDescription
+        binding.questionTv.accessibilityLiveRegion = View.ACCESSIBILITY_LIVE_REGION_POLITE // less aggressive
+
         binding.answerEt.setText("")
-        binding.answerEt.requestFocus()
+
+        // Step 1: Announce question first without forcing focus
         binding.questionTv.post {
             binding.questionTv.announceForAccessibility(questionDescription)
+
+            // Step 2: Then delay keyboard opening after announcement
+            binding.answerEt.postDelayed({
+                binding.answerEt.requestFocus()
+
+                val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.showSoftInput(binding.answerEt, InputMethodManager.SHOW_IMPLICIT)
+            }, 1200) // delay longer to allow TalkBack to finish speaking
         }
     }
 
@@ -89,19 +106,16 @@ class MathQuizFragment : Fragment() {
         val dialogBinding = DialogResultBinding.inflate(inflater)
         val dialogView = dialogBinding.root
 
-        dialogBinding.messageTextView.text = if (isCorrect) "Right Answer" else "Wrong Answer"
+        val message = if (isCorrect) "Right Answer" else "Wrong Answer"
         val gifRes = if (isCorrect) R.drawable.right else R.drawable.wrong
 
-        Glide.with(this)
-            .asGif()
-            .load(gifRes)
-            .into(dialogBinding.gifImageView)
+        dialogBinding.messageTextView.text = message
+        Glide.with(this).asGif().load(gifRes).into(dialogBinding.gifImageView)
 
         val dialog = AlertDialog.Builder(requireContext())
             .setView(dialogView)
-            .setCancelable(true)
+            .setCancelable(false)
             .create()
-
         dialog.show()
 
         Handler(Looper.getMainLooper()).postDelayed({
@@ -114,12 +128,11 @@ class MathQuizFragment : Fragment() {
                         generateNewQuestion()
                     }, 300)
                 } else {
-                    // Replay same question
                     binding.questionTv.postDelayed({
                         binding.questionTv.announceForAccessibility("Try again. ${binding.questionTv.text}")
                     }, 300)
                 }
             }
-        }, 1500) // 1.5 seconds for animation
+        }, 1500) // 1.5 seconds dialog animation time
     }
 }

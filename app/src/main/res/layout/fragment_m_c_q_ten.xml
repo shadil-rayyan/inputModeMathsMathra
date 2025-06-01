@@ -10,103 +10,112 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center"
-        android:padding="60dp">
+        android:layout_marginTop="40dp"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
 
         <!-- Instruction -->
         <com.google.android.material.textview.MaterialTextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="What is the value of:"
+            android:layout_margin="20dp"
             android:textColor="@color/primaryText"
-            android:textSize="24sp"
-            android:layout_margin="10dp" />
+            android:textSize="20sp"
+            android:layout_marginVertical="8dp" />
 
         <!-- Question -->
+
+        <!-- Options Grid (Flexible Rows) -->
+
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/question_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="12dp"
+            android:contentDescription="Question: What is 2 plus 2?"
+            android:importantForAccessibility="yes"
+            android:text="2 + 2 = ?"
+            android:textAlignment="center"
+            android:textColor="@color/primaryText"
+            android:textSize="32sp" />
+
+        <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="2 + 2 = ?"
-            android:textColor="@color/primaryText"
-            android:textAlignment="center"
-            android:textSize="36sp"
-            android:layout_margin="10dp"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:clickable="true"
-            android:contentDescription="Question. What is 2 plus 2? Double tap to repeat. There are ten options below." />
+            android:layout_marginTop="90dp"
+            android:columnCount="3"
+            android:alignmentMode="alignMargins"
+            android:rowOrderPreserved="false"
+            android:useDefaultMargins="true">
 
-        <!-- Option Rows (3 per row) -->
-        <!-- Row 1 -->
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:orientation="horizontal" android:gravity="center" android:layout_marginTop="10dp">
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/option_a"
                 style="@style/OptionButton"
                 android:text="10"
-                android:contentDescription="Option A. 10. Double tap to select." />
+                android:contentDescription="Option A: 10" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/option_b"
                 style="@style/OptionButton"
                 android:text="20"
-                android:contentDescription="Option B. 20. Double tap to select." />
+                android:contentDescription="Option B: 20" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/option_c"
                 style="@style/OptionButton"
                 android:text="30"
-                android:contentDescription="Option C. 30. Double tap to select." />
-        </LinearLayout>
+                android:contentDescription="Option C: 30" />
 
-        <!-- Row 2 -->
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:orientation="horizontal" android:gravity="center" android:layout_marginTop="10dp">
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/option_d"
                 style="@style/OptionButton"
                 android:text="40"
-                android:contentDescription="Option D. 40. Double tap to select." />
+                android:contentDescription="Option D: 40" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/option_e"
                 style="@style/OptionButton"
                 android:text="50"
-                android:contentDescription="Option E. 50. Double tap to select." />
+                android:contentDescription="Option E: 50" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/option_f"
                 style="@style/OptionButton"
                 android:text="60"
-                android:contentDescription="Option F. 60. Double tap to select." />
-        </LinearLayout>
+                android:contentDescription="Option F: 60" />
 
-        <!-- Row 3 -->
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:orientation="horizontal" android:gravity="center" android:layout_marginTop="10dp">
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/option_g"
                 style="@style/OptionButton"
                 android:text="70"
-                android:contentDescription="Option G. 70. Double tap to select." />
+                android:contentDescription="Option G: 70" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/option_h"
                 style="@style/OptionButton"
                 android:text="80"
-                android:contentDescription="Option H. 80. Double tap to select." />
+                android:contentDescription="Option H: 80" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/option_i"
                 style="@style/OptionButton"
                 android:text="90"
-                android:contentDescription="Option I. 90. Double tap to select." />
-        </LinearLayout>
+                android:contentDescription="Option I: 90" />
+        </GridLayout>
 
-        <!-- Final Row (1 button) -->
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:orientation="horizontal" android:gravity="center" android:layout_marginTop="10dp">
+        <!-- Extra Option Outside Grid -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="8dp">
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/option_j"
                 style="@style/OptionButton"
                 android:text="100"
-                android:contentDescription="Option J. 100. Double tap to select." />
+                android:contentDescription="Option J: 100" />
         </LinearLayout>
-
     </LinearLayout>
 </ScrollView>

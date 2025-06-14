@@ -1,5 +1,6 @@
 package com.example.codecompass.inputmodemathra.ui
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
 import android.os.Handler
@@ -15,11 +16,14 @@ import com.example.codecompass.inputmodemathra.databinding.FragmentMCQTenBinding
 import com.example.codecompass.inputmodemathra.enums.Difficulty
 import com.example.codecompass.inputmodemathra.utils.RandomValueGenerator
 import com.example.codecompass.inputmodemathra.utils.TTSUtility
+import com.example.codecompass.inputmodemathra.utils.common.AccessibilityLocaleWrapper
 import com.example.codecompass.inputmodemathra.utils.settings.LocaleHelper
 import com.google.android.material.button.MaterialButton
 import java.text.NumberFormat
 import java.util.*
+
 class MCQTENFragment : Fragment() {
+
     private var binding: FragmentMCQTenBinding? = null
     private var random: RandomValueGenerator? = null
     private var tts: TTSUtility? = null
@@ -42,14 +46,14 @@ class MCQTENFragment : Fragment() {
         binding = FragmentMCQTenBinding.inflate(inflater, container, false)
         random = RandomValueGenerator()
 
-        // Initialize and set TTS locale
+        // Initialize TTS with current locale
         tts = TTSUtility(requireActivity(), currentLocale)
-
 
         generateNewQuestion()
         return binding!!.root
     }
 
+    @SuppressLint("StringFormatMatches")
     private fun generateNewQuestion() {
         val topic = random!!.generateQuestionTopic()
         val numbers: IntArray
@@ -76,8 +80,13 @@ class MCQTENFragment : Fragment() {
 
         correctAnswer = numbers[2]
         val questionText = "${numbers[0]} $operator ${numbers[1]} = ?"
+
+        // Set question text first
         binding!!.questionTv.text = questionText
-        binding!!.questionTv.contentDescription = "Question. $questionText. There are ten options below."
+
+        // Localized content description for TalkBack using strings.xml placeholders
+        val questionContentDesc = getString(R.string.question_desc_ten_options, questionText)
+        AccessibilityLocaleWrapper.setLocalizedContentDescription(requireContext(), binding!!.questionTv, questionContentDesc)
 
         Handler(Looper.getMainLooper()).postDelayed({
             binding!!.questionTv.requestFocus()
@@ -117,13 +126,18 @@ class MCQTENFragment : Fragment() {
     private fun updateOption(button: MaterialButton, value: Int, label: String) {
         val formatted = numberFormatter.format(value)
         button.text = formatted
-        button.contentDescription = "Option $label. $formatted."
+
+        // Localized option description for TalkBack
+        val optionDesc = getString(R.string.option_label, label, formatted)
+        AccessibilityLocaleWrapper.setLocalizedContentDescription(requireContext(), button, optionDesc)
+
         button.setOnClickListener { showResultDialog(value == correctAnswer) }
     }
 
     private fun showResultDialog(isCorrect: Boolean) {
-        val message = if (isCorrect) "Right Answer" else "Wrong Answer"
+        val message = if (isCorrect) getString(R.string.right_answer) else getString(R.string.wrong_answer)
         val gifResource = if (isCorrect) R.drawable.right else R.drawable.wrong
+
         tts!!.speak(message)
 
         val dialogBinding = DialogResultBinding.inflate(layoutInflater)
@@ -139,7 +153,7 @@ class MCQTENFragment : Fragment() {
         Handler(Looper.getMainLooper()).postDelayed({
             dialog.dismiss()
             speakNumber(correctAnswer)
-            tts!!.speak("Next Question")
+            tts!!.speak(getString(R.string.next_question))
             generateNewQuestion()
         }, 2000)
     }
@@ -152,6 +166,6 @@ class MCQTENFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
-        tts!!.shutdown()
+        tts?.shutdown()
     }
 }

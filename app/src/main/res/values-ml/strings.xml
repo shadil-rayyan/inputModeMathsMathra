@@ -101,6 +101,7 @@
     <string name="option_hint">താഴെ നാല് ഓപ്ഷനുകൾ ഉണ്ട്.</string>
     <string name="option_label">ഓപ്ഷൻ %1$s. %2$s</string>
     <string name="option_hint_five">ചുവടെ അഞ്ച് ഓപ്ഷനുകൾ ഉണ്ട്.</string>
+    <string name="question_desc_ten_options">ചോദ്യം: %1$s. താഴെ അഞ്ച് ഓപ്ഷനുകൾ ഉണ്ട്.</string>
 
 
 

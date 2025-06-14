@@ -102,6 +102,8 @@
     <string name="option_hint">There are four options below.</string>
     <string name="option_label">Option %1$s. %2$s</string>
     <string name="option_hint_five">There are five options below.</string>
+    <string name="question_desc_ten_options">Question: %1$s. There are ten options below.</string>
+
 
 
 

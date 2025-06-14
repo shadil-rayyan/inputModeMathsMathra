@@ -19,7 +19,7 @@
             android:id="@+id/question_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3 + 4 = ?"
+            android:text="@string/spinner_question"
             android:textSize="36sp"
             android:textColor="@color/primaryText"
             android:layout_marginBottom="24dp"
@@ -42,7 +42,7 @@
             android:id="@+id/submit_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Submit"
+            android:text="@string/submit"
             style="@style/DialpadButton"
             android:textSize="20sp"
             android:layout_marginTop="24dp" />

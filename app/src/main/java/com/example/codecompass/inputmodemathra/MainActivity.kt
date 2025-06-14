@@ -1,5 +1,6 @@
 package com.example.codecompass.inputmodemathra
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Region
 import android.os.Build
@@ -21,6 +22,7 @@ import com.example.codecompass.inputmodemathra.utils.AccessibilityUtils
 import com.example.codecompass.inputmodemathra.utils.FragmentNavigation
 import com.example.codecompass.inputmodemathra.utils.MathsManthraAccessibilityService
 import com.example.codecompass.inputmodemathra.utils.PermissionManager
+import com.example.codecompass.inputmodemathra.utils.settings.LocaleHelper
 
 class MainActivity : AppCompatActivity(), FragmentNavigation {
 
@@ -64,6 +66,11 @@ class MainActivity : AppCompatActivity(), FragmentNavigation {
 
         checkAccessibilityService()
     }
+
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(LocaleHelper.onAttach(newBase))
+    }
+
 
     override fun onSupportNavigateUp(): Boolean {
         val fragmentManager = supportFragmentManager

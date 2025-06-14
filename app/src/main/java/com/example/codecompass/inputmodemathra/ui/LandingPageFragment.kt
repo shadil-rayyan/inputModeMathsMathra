@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.codecompass.inputmodemathra.databinding.FragmentLandingpageBinding
 import com.example.codecompass.inputmodemathra.utils.FragmentNavigation
-import  com.example.codecompass.inputmodemathra.utils.LocaleHelper
 import android.os.Build
 
 class LandingPageFragment : Fragment() {
@@ -98,7 +97,7 @@ class LandingPageFragment : Fragment() {
         binding!!.SettingsButtons.setOnClickListener { v ->
             if (navigationListener != null) {
                 navigationListener!!.loadFragment(
-                    SettingsFragment(),
+                    SettingFragment(),
                     FragmentTransaction.TRANSIT_FRAGMENT_OPEN
                 )
             }

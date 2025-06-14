@@ -4,21 +4,30 @@ import android.app.AlertDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.SpannableString;
+import android.text.style.LocaleSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.accessibility.AccessibilityNodeInfo;
+
 import com.bumptech.glide.Glide;
-import com.google.android.material.button.MaterialButton;
 import com.example.codecompass.inputmodemathra.R;
 import com.example.codecompass.inputmodemathra.databinding.DialogResultBinding;
 import com.example.codecompass.inputmodemathra.databinding.FragmentMCQBinding;
 import com.example.codecompass.inputmodemathra.enums.Difficulty;
 import com.example.codecompass.inputmodemathra.utils.RandomValueGenerator;
+import com.example.codecompass.inputmodemathra.utils.settings.LocaleHelper;
 import com.example.codecompass.inputmodemathra.utils.TTSUtility;
+import com.google.android.material.button.MaterialButton;
+
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 public class MCQFragment extends androidx.fragment.app.Fragment {
@@ -27,19 +36,23 @@ public class MCQFragment extends androidx.fragment.app.Fragment {
     private RandomValueGenerator random;
     private TTSUtility tts;
     private int correctAnswer;
+    private Locale locale;
 
     public MCQFragment() {}
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentMCQBinding.inflate(inflater, container, false);
         random = new RandomValueGenerator();
-        tts = new TTSUtility(requireActivity());
+
+        String languageCode = LocaleHelper.getLanguage(requireContext());
+        locale = new Locale(languageCode);
+
+        Log.d("MCQFragment", "Language code: " + languageCode);
+        Log.d("MCQFragment", "Locale set to: " + locale.getDisplayLanguage());
+
+        tts = new TTSUtility(requireActivity(), locale);
+
         generateNewQuestion();
         return binding.getRoot();
     }
@@ -68,19 +81,23 @@ public class MCQFragment extends androidx.fragment.app.Fragment {
         }
 
         correctAnswer = numbers[2];
-        String questionText = numbers[0] + " " + operator + " " + numbers[1] + " = ?";
+
+        String num1 = localizeDigits(numbers[0]);
+        String num2 = localizeDigits(numbers[1]);
+        String questionText = num1 + " " + operator + " " + num2 + " = ?";
+
         binding.questionTv.setText(questionText);
 
-        // Accessibility description
-        binding.questionTv.setContentDescription("Question. " + questionText + ". Double tap to repeat. There are four options below.");
+        String langCode = locale.getLanguage();
+        String contentDesc = getString(R.string.question_prefix) + " " + questionText + " " + getString(R.string.option_hint);
+        applyAccessibilityLocale(binding.questionTv, contentDesc, langCode);
 
-        // Set focus on the question
+        tts.speak(questionText);
+
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             binding.questionTv.requestFocus();
-            binding.questionTv.announceForAccessibility(questionText);
         }, 500);
 
-        // Generate unique answer choices
         List<Integer> choices = generateUniqueOptions(correctAnswer);
         updateOption(binding.optionA, choices.get(0), "A");
         updateOption(binding.optionB, choices.get(1), "B");
@@ -105,15 +122,20 @@ public class MCQFragment extends androidx.fragment.app.Fragment {
     }
 
     private void updateOption(MaterialButton button, int value, String label) {
-        button.setText(String.valueOf(value));
-        button.setContentDescription("Option " + label + ". " + value + ". Double tap to select.");
+        String localizedValue = localizeDigits(value);
+        button.setText(localizedValue);
+
+        String langCode = locale.getLanguage();
+        String optionText = getString(R.string.option_label, label, localizedValue);
+        applyAccessibilityLocale(button, optionText, langCode);
 
         button.setOnClickListener(v -> showResultDialog(value == correctAnswer));
     }
 
     private void showResultDialog(boolean isCorrect) {
-        String message = isCorrect ? "Right Answer" : "Wrong Answer";
+        String message = isCorrect ? getString(R.string.right_answer) : getString(R.string.wrong_answer);
         int gifResource = isCorrect ? R.drawable.right : R.drawable.wrong;
+
         tts.speak(message);
 
         DialogResultBinding dialogBinding = DialogResultBinding.inflate(getLayoutInflater());
@@ -126,12 +148,15 @@ public class MCQFragment extends androidx.fragment.app.Fragment {
 
         dialog.show();
 
-        // Auto-dismiss the dialog after 2 seconds
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             dialog.dismiss();
-            tts.speak("Next Question");
+            tts.speak(getString(R.string.next_question));
             generateNewQuestion();
         }, 2000);
+    }
+
+    private String localizeDigits(int input) {
+        return NumberFormat.getInstance(locale).format(input);
     }
 
     @Override
@@ -139,5 +164,21 @@ public class MCQFragment extends androidx.fragment.app.Fragment {
         super.onDestroyView();
         binding = null;
         tts.shutdown();
+    }
+
+    private void applyAccessibilityLocale(View view, String text, String langCode) {
+        view.setContentDescription(text);
+
+        view.setAccessibilityDelegate(new View.AccessibilityDelegate() {
+            @Override
+            public void onInitializeAccessibilityNodeInfo(View host, AccessibilityNodeInfo info) {
+                super.onInitializeAccessibilityNodeInfo(host, info);
+                if (info != null) {
+                    SpannableString spannable = new SpannableString(text);
+                    spannable.setSpan(new LocaleSpan(new Locale(langCode)), 0, text.length(), 0);
+                    info.setText(spannable);
+                }
+            }
+        });
     }
 }

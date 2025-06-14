@@ -15,6 +15,9 @@ import com.example.codecompass.inputmodemathra.databinding.DialogResultBinding
 import com.example.codecompass.inputmodemathra.databinding.FragmentNumericDialpadBinding
 import com.example.codecompass.inputmodemathra.enums.Difficulty
 import com.example.codecompass.inputmodemathra.utils.RandomValueGenerator
+import com.example.codecompass.inputmodemathra.utils.settings.LocaleHelper
+import java.text.NumberFormat
+import java.util.Locale
 
 class NumericDialpadFragment : Fragment() {
 
@@ -58,22 +61,38 @@ class NumericDialpadFragment : Fragment() {
         }
     }
 
+
+
     private fun generateNewQuestion() {
         val numbers = random.generateAdditionValues(Difficulty.EASY)
         correctAnswer = numbers[2]
-        val questionText = "${numbers[0]} + ${numbers[1]} = ?"
+
+        val languageCode = LocaleHelper.getLanguage(requireContext())  // e.g. "en", "hi", "kn"
+        val currentLocale = Locale(languageCode)
+
+        val nf = NumberFormat.getInstance(currentLocale)
+        val num1Str = nf.format(numbers[0])
+        val num2Str = nf.format(numbers[1])
+
+        val questionText = getString(R.string.question_format, num1Str, num2Str)
+        // where in strings.xml you have: <string name="question_format">%1$s + %2$s = ?</string>
+
         binding.questionTv.text = questionText
-        binding.questionTv.contentDescription =
-                "Math question. ${numbers[0]} plus ${numbers[1]} equals what? Double tap to repeat the question."
+
+        val questionDescription = getString(R.string.question_desc, num1Str, num2Str)
+        // in strings.xml: <string name="question_desc">Question. %1$s plus %2$s equals what?</string>
+
+        binding.questionTv.contentDescription = questionDescription
 
         binding.questionTv.post {
-            binding.questionTv.announceForAccessibility(binding.questionTv.contentDescription)
+            binding.questionTv.announceForAccessibility(questionDescription)
         }
 
         // Reset answer display
         currentInput.clear()
         binding.answerDisplay.text = ""
     }
+
 
     private fun showResultDialog(isCorrect: Boolean) {
         val message = if (isCorrect) "Right Answer" else "Wrong Answer"

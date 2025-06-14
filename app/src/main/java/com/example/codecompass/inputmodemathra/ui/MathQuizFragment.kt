@@ -8,7 +8,6 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.accessibility.AccessibilityEvent
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
@@ -18,10 +17,14 @@ import com.example.codecompass.inputmodemathra.databinding.DialogResultBinding
 import com.example.codecompass.inputmodemathra.databinding.FragmentMathQuizBinding
 import com.example.codecompass.inputmodemathra.enums.Difficulty
 import com.example.codecompass.inputmodemathra.utils.RandomValueGenerator
+import java.text.NumberFormat
+import java.util.Locale
 
 class MathQuizFragment : Fragment() {
 
-    private lateinit var binding: FragmentMathQuizBinding
+    private var _binding: FragmentMathQuizBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var random: RandomValueGenerator
     private var currentAnswer = 0
     private var questionCount = 0
@@ -31,16 +34,16 @@ class MathQuizFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMathQuizBinding.inflate(inflater, container, false)
+        _binding = FragmentMathQuizBinding.inflate(inflater, container, false)
         random = RandomValueGenerator()
 
         setupListeners()
         generateNewQuestion()
+
         return binding.root
     }
 
     private fun setupListeners() {
-        // Submit on IME action (Done on keyboard)
         binding.answerEt.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 submitAnswer()
@@ -48,24 +51,28 @@ class MathQuizFragment : Fragment() {
             } else false
         }
 
-        // Submit on button click
         binding.submitAnswerBtn.setOnClickListener {
             submitAnswer()
         }
 
-        // Repeat question on tap or long press
-        binding.questionTv.setOnClickListener {
+        val repeatQuestion = {
             binding.questionTv.announceForAccessibility("Repeating. ${binding.questionTv.text}")
         }
+        binding.questionTv.setOnClickListener { repeatQuestion() }
         binding.questionTv.setOnLongClickListener {
-            binding.questionTv.announceForAccessibility("Repeating. ${binding.questionTv.text}")
+            repeatQuestion()
             true
         }
     }
 
     private fun submitAnswer() {
-        val answerText = binding.answerEt.text.toString()
-        val userAnswer = answerText.toIntOrNull() ?: return
+        val userInput = binding.answerEt.text.toString()
+        val userAnswer = try {
+            NumberFormat.getInstance(getCurrentLocale()).parse(userInput)?.toInt()
+        } catch (e: Exception) {
+            null
+        } ?: return
+
         val isCorrect = userAnswer == currentAnswer
         showResultDialog(isCorrect)
     }
@@ -78,44 +85,43 @@ class MathQuizFragment : Fragment() {
 
         val numbers = random.generateAdditionValues(Difficulty.EASY)
         currentAnswer = numbers[2]
-        val questionText = "${numbers[0]} + ${numbers[1]} = ?"
-        val questionDescription = "Math question. ${numbers[0]} plus ${numbers[1]} equals what?"
+
+        val formattedFirst = formatNumber(numbers[0])
+        val formattedSecond = formatNumber(numbers[1])
+
+        val questionText = "$formattedFirst + $formattedSecond = ?"
+        val questionDescription = "Math question. $formattedFirst plus $formattedSecond equals what?"
 
         binding.questionTv.text = questionText
         binding.questionTv.contentDescription = questionDescription
-        binding.questionTv.accessibilityLiveRegion = View.ACCESSIBILITY_LIVE_REGION_POLITE // less aggressive
+        binding.questionTv.accessibilityLiveRegion = View.ACCESSIBILITY_LIVE_REGION_POLITE
 
         binding.answerEt.setText("")
 
-        // Step 1: Announce question first without forcing focus
         binding.questionTv.post {
             binding.questionTv.announceForAccessibility(questionDescription)
 
-            // Step 2: Then delay keyboard opening after announcement
             binding.answerEt.postDelayed({
                 binding.answerEt.requestFocus()
-
                 val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.showSoftInput(binding.answerEt, InputMethodManager.SHOW_IMPLICIT)
-            }, 1200) // delay longer to allow TalkBack to finish speaking
+            }, 1200)
         }
     }
 
     private fun showResultDialog(isCorrect: Boolean) {
-        val inflater = layoutInflater
-        val dialogBinding = DialogResultBinding.inflate(inflater)
-        val dialogView = dialogBinding.root
-
-        val message = if (isCorrect) "Right Answer" else "Wrong Answer"
+        val dialogBinding = DialogResultBinding.inflate(layoutInflater)
+        val message = if (isCorrect) getString(R.string.right_answer) else getString(R.string.wrong_answer)
         val gifRes = if (isCorrect) R.drawable.right else R.drawable.wrong
 
         dialogBinding.messageTextView.text = message
         Glide.with(this).asGif().load(gifRes).into(dialogBinding.gifImageView)
 
         val dialog = AlertDialog.Builder(requireContext())
-            .setView(dialogView)
+            .setView(dialogBinding.root)
             .setCancelable(false)
             .create()
+
         dialog.show()
 
         Handler(Looper.getMainLooper()).postDelayed({
@@ -124,7 +130,7 @@ class MathQuizFragment : Fragment() {
                 if (isCorrect) {
                     questionCount++
                     binding.questionTv.postDelayed({
-                        binding.questionTv.announceForAccessibility("Next question.")
+                        binding.questionTv.announceForAccessibility(getString(R.string.next_question))
                         generateNewQuestion()
                     }, 300)
                 } else {
@@ -133,6 +139,19 @@ class MathQuizFragment : Fragment() {
                     }, 300)
                 }
             }
-        }, 1500) // 1.5 seconds dialog animation time
+        }, 1500)
+    }
+
+    private fun formatNumber(value: Int): String {
+        return NumberFormat.getInstance(getCurrentLocale()).format(value)
+    }
+
+    private fun getCurrentLocale(): Locale {
+        return resources.configuration.locales[0]
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -18,18 +18,17 @@
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Calculate the value of:"
+            android:text="@string/instruction_text"
             android:textSize="24sp"
             android:textColor="@color/primaryText"
-            android:layout_marginBottom="12dp"
-            android:contentDescription="Instruction. Calculate the value of the following." />
+            android:layout_marginBottom="12dp" />
 
         <!-- Question Text -->
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/question_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2 + 2 = ?"
+            android:text="@string/question_sample"
             android:textSize="48sp"
             android:textColor="@color/primaryText"
             android:focusable="true"
@@ -43,21 +42,19 @@
             android:layout_height="wrap_content"
             app:boxBackgroundMode="outline"
             app:hintEnabled="true"
-            android:layout_marginBottom="16dp"
-            android:contentDescription="Answer input container">
+            android:layout_marginBottom="16dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/answer_et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Your Answer"
+                android:hint="@string/hint_answer"
                 android:inputType="number"
                 android:importantForAccessibility="yes"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:accessibilityLiveRegion="none"
                 android:labelFor="@+id/answer_et"
-                android:contentDescription="Answer input field. Enter your answer here."
                 android:textColor="@color/primaryText"
                 android:textColorHint="@color/primaryText" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -68,8 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/button"
-            android:contentDescription="Submit button. Double tap to submit your answer."
-            android:text="Submit"
+            android:text="@string/submit_button_text"
             android:textColor="@color/primaryText"
             android:textSize="20sp" />
     </LinearLayout>

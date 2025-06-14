@@ -1,4 +1,4 @@
-package com.example.codecompass.inputmodemathra.utils;
+package com.example.codecompass.inputmodemathra.utils.common;
 
 import android.content.Context;
 import android.speech.tts.TextToSpeech;
@@ -15,21 +15,23 @@ public class TTSUtility {
     private float speechRate = 1.0f; // default
     private final Queue<String> speechQueue = new LinkedList<>();
 
-    public TTSUtility(Context context, Locale locale) {
-        Log.d("TTSUtility", "Initializing TTS with locale: " + locale);
+    public TTSUtility(Context context) {
+        Log.d("TTSUtility", "Initializing TTS");
         tts = new TextToSpeech(context.getApplicationContext(), status -> {
             if (status == TextToSpeech.SUCCESS) {
-                int result = tts.setLanguage(locale);
+                int result = tts.setLanguage(Locale.forLanguageTag("en-IN"));
                 isInitialized = (result != TextToSpeech.LANG_MISSING_DATA &&
                         result != TextToSpeech.LANG_NOT_SUPPORTED);
                 if (isInitialized) {
                     tts.setSpeechRate(speechRate);
                     Log.d("TTSUtility", "TTS initialized successfully with speech rate " + speechRate);
+
+                    // Speak queued texts
                     while (!speechQueue.isEmpty()) {
                         speakInternal(speechQueue.poll());
                     }
                 } else {
-                    Log.e("TTSUtility", "TTS language not supported: " + locale);
+                    Log.e("TTSUtility", "TTS language not supported");
                 }
             } else {
                 Log.e("TTSUtility", "TTS initialization failed");

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accessibility_service_description">കാഴ്ച വൈകല്യമുള്ളവർക്ക് വാചിക പ്രതികരണം നൽകുന്നു.</string>
+
+    <!-- landing page -->
+    <string name="home_page_content_description">ഹോം പേജ് - ഇൻപുട്ട് മത്രയിലേക്ക് സ്വാഗതം, ഇവിടെ ഏറ്റവും നല്ല ഉത്തരം നൽകൽ രീതിയ്‌യെ തിരഞ്ഞെടുക്കുന്നു.</string>
+
+    <string name="dialpad">ഡയൽപാഡ്</string>
+    <string name="dialpad_content_description">ഡയൽപാഡ് ബട്ടൺ.</string>
+
+    <string name="four_mcq">4 എംസിക്യു</string>
+    <string name="four_mcq_content_description">4 ബഹുസ്വര ചോദ്യം ബട്ടൺ.</string>
+
+    <string name="five_mcq">5 എംസിക്യു</string>
+    <string name="five_mcq_content_description">5 ബഹുസ്വര ചോദ്യം ബട്ടൺ.</string>
+
+    <string name="ten_mcq">10 എംസിക്യു</string>
+    <string name="ten_mcq_content_description">10 ബഹുസ്വര ചോദ്യം ബട്ടൺ.</string>
+
+    <string name="numeric_dial">സംഖ്യാപദം</string>
+    <string name="numeric_dial_content_description">സംഖ്യാപദം ബട്ടൺ.</string>
+
+    <string name="spinner">സ്പിന്നർ</string>
+    <string name="spinner_content_description">സ്പിന്നർ ബട്ടൺ.</string>
+
+    <string name="settings">ക്രമീകരണങ്ങൾ</string>
+    <string name="settings_content_description">ക്രമീകരണ ബട്ടൺ.</string>
+
+    <string name="quit_button">പുറത്തുകടക്ക്</string>
+    <string name="quit_button_content_description">ആപ്പ് മുടക്കുക.</string>
+
+    <!-- settings -->
+    <string name="select_language">ഭാഷ തിരഞ്ഞെടുക്കുക</string>
+    <string name="select_language_dropdown">ഭാഷ തിരഞ്ഞെടുപ്പ് ഡ്രോപ്പ്ഡൗൺ</string>
+    <string name="settings_title">ക്രമീകരണങ്ങൾ</string>
+    <string name="choose_language">ഭാഷ തിരഞ്ഞെടുക്കുക</string>
+    <string name="choose_language_desc">താങ്കളുടെ ഇഷ്ടപ്പെട്ട ഭാഷ തിരഞ്ഞെടുക്കുക</string>
+    <string name="language_default">ഡിഫോൾട്ട്</string>
+    <string name="language_english">ഇംഗ്ലീഷ്</string>
+    <string name="language_malayalam">മലയാളം</string>
+
+    <string name="instruction_text">മൂല്യം കണക്കുകൂ:</string>
+    <string name="question_sample">2 + 2 = ?</string>
+    <string name="hint_answer">നിങ്ങളുടെ ഉത്തരം</string>
+    <string name="submit_button_text">സമർപ്പിക്കുക</string>
+
+    <string name="math_question_text">2 + 2 = ?</string>
+    <string name="question_content_desc">ചോദ്യം. 2 ഉം 2 ഉം ചേർത്താൽ എത്ര?. താഴെ പത്ത് ഓപ്ഷനുകൾ ഉണ്ട്.</string>
+
+    <string name="mcq_instruction">മൂല്യം എത്രയാണ്:</string>
+    <string name="mcq_question">2 + 2 = ?</string>
+
+    <!-- Option Labels -->
+    <string name="option_a">10</string>
+    <string name="option_b">20</string>
+    <string name="option_c">30</string>
+    <string name="option_d">40</string>
+    <string name="option_e">50</string>
+    <string name="option_f">60</string>
+    <string name="option_g">70</string>
+    <string name="option_h">80</string>
+    <string name="option_i">90</string>
+    <string name="option_j">100</string>
+
+    <!-- Option Descriptions for Accessibility -->
+    <string name="option_desc_a">ഓപ്ഷൻ A: 10</string>
+    <string name="option_desc_b">ഓപ്ഷൻ B: 20</string>
+    <string name="option_desc_c">ഓപ്ഷൻ C: 30</string>
+    <string name="option_desc_d">ഓപ്ഷൻ D: 40</string>
+    <string name="option_desc_e">ഓപ്ഷൻ E: 50</string>
+    <string name="option_desc_f">ഓപ്ഷൻ F: 60</string>
+    <string name="option_desc_g">ഓപ്ഷൻ G: 70</string>
+    <string name="option_desc_h">ഓപ്ഷൻ H: 80</string>
+    <string name="option_desc_i">ഓപ്ഷൻ I: 90</string>
+    <string name="option_desc_j">ഓപ്ഷൻ J: 100</string>
+
+    <string name="spinner_question">3 + 4 = ?</string>
+    <string name="question_text">2 + 2 = ?</string>
+
+    <string name="submit">സമർപ്പിക്കുക</string>
+
+    <!-- Dialpad Numbers -->
+    <string name="num_0">0</string>
+    <string name="num_1">1</string>
+    <string name="num_2">2</string>
+    <string name="num_3">3</string>
+    <string name="num_4">4</string>
+    <string name="num_5">5</string>
+    <string name="num_6">6</string>
+    <string name="num_7">7</string>
+    <string name="num_8">8</string>
+    <string name="num_9">9</string>
+
+    <string name="question_format">%1$s + %2$s = ?</string>
+    <string name="question_desc">ചോദ്യം. %1$s ഉം %2$s ഉം ചേർത്താൽ എത്ര?</string>
+    <string name="right_answer">ശരിയായ ഉത്തരം</string>
+    <string name="wrong_answer">തെറ്റായ ഉത്തരം</string>
+    <string name="next_question">അടുത്ത ചോദ്യം</string>
+
+    <string name="question_prefix">ചോദ്യം.</string>
+    <string name="option_hint">താഴെ നാല് ഓപ്ഷനുകൾ ഉണ്ട്.</string>
+    <string name="option_label">ഓപ്ഷൻ %1$s. %2$s</string>
+
+
+</resources>

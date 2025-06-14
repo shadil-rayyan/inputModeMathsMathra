@@ -14,22 +14,19 @@
         android:gravity="center"
         android:padding="20dp">
 
-        <!-- Instruction Text -->
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="What is the value of:"
+            android:text="@string/instruction_text"
             android:textColor="@color/primaryText"
             android:textSize="24sp"
-            android:layout_margin="10dp"
-            />
+            android:layout_margin="10dp" />
 
-        <!-- Math Question Text -->
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/question_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="2 + 2 = ?"
+            android:text="@string/math_question_text"
             android:textColor="@color/primaryText"
             android:textAlignment="center"
             android:layout_margin="10dp"
@@ -37,7 +34,8 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:clickable="true"
-            android:contentDescription="Question. What is 2 plus 2? Double tap to repeat. There are four options below." />
+            android:contentDescription="@string/question_content_desc" />
+
 
         <!-- First Row of Options -->
         <LinearLayout
@@ -52,21 +50,22 @@
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:textSize="24sp"
-                android:text="100"
+                android:text="@string/option_a"
                 android:textColor="@color/primaryText"
                 android:backgroundTint="@color/button"
-                android:contentDescription=" option A.100. Double tap to select." />
+                android:contentDescription="@string/option_desc_a" />
+
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/option_b"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:layout_marginStart="100dp"
                 android:textSize="24sp"
-                android:text="200"
+                android:text="@string/option_b"
                 android:textColor="@color/primaryText"
                 android:backgroundTint="@color/button"
-                android:contentDescription="Option B. 200. Double tap to select." />
+                android:contentDescription="@string/option_desc_b" />
+
         </LinearLayout>
 
         <!-- Second Row of Options -->
@@ -82,21 +81,22 @@
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:textSize="24sp"
-                android:text="100"
+                android:text="@string/option_c"
                 android:textColor="@color/primaryText"
                 android:backgroundTint="@color/button"
-                android:contentDescription="Option C. 100. Double tap to select." />
+                android:contentDescription="@string/option_desc_c" />
+
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/option_d"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                android:layout_marginStart="100dp"
                 android:textSize="24sp"
-                android:text="200"
+                android:text="@string/option_d"
                 android:textColor="@color/primaryText"
                 android:backgroundTint="@color/button"
-                android:contentDescription="Option D. 200. Double tap to select." />
+                android:contentDescription="@string/option_desc_e" />
+
         </LinearLayout>
 
     </LinearLayout>

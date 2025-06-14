@@ -15,17 +15,23 @@ import com.example.codecompass.inputmodemathra.databinding.FragmentMCQTenBinding
 import com.example.codecompass.inputmodemathra.enums.Difficulty
 import com.example.codecompass.inputmodemathra.utils.RandomValueGenerator
 import com.example.codecompass.inputmodemathra.utils.TTSUtility
+import com.example.codecompass.inputmodemathra.utils.settings.LocaleHelper
 import com.google.android.material.button.MaterialButton
-import java.util.Collections
-
+import java.text.NumberFormat
+import java.util.*
 class MCQTENFragment : Fragment() {
     private var binding: FragmentMCQTenBinding? = null
     private var random: RandomValueGenerator? = null
     private var tts: TTSUtility? = null
     private var correctAnswer = 0
+    private lateinit var currentLocale: Locale
+    private lateinit var numberFormatter: NumberFormat
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val languageCode = LocaleHelper.getLanguage(requireContext())
+        currentLocale = Locale(languageCode)
+        numberFormatter = NumberFormat.getInstance(currentLocale)
     }
 
     override fun onCreateView(
@@ -35,11 +41,14 @@ class MCQTENFragment : Fragment() {
     ): View? {
         binding = FragmentMCQTenBinding.inflate(inflater, container, false)
         random = RandomValueGenerator()
-        tts = TTSUtility(requireActivity())
+
+        // Initialize and set TTS locale
+        tts = TTSUtility(requireActivity(), currentLocale)
+
+
         generateNewQuestion()
         return binding!!.root
     }
-
 
     private fun generateNewQuestion() {
         val topic = random!!.generateQuestionTopic()
@@ -68,8 +77,7 @@ class MCQTENFragment : Fragment() {
         correctAnswer = numbers[2]
         val questionText = "${numbers[0]} $operator ${numbers[1]} = ?"
         binding!!.questionTv.text = questionText
-        binding!!.questionTv.contentDescription =
-            "Question. $questionText. Double tap to repeat. There are ten options below."
+        binding!!.questionTv.contentDescription = "Question. $questionText. There are ten options below."
 
         Handler(Looper.getMainLooper()).postDelayed({
             binding!!.questionTv.requestFocus()
@@ -78,16 +86,9 @@ class MCQTENFragment : Fragment() {
 
         val choices = generateUniqueOptions(correctAnswer)
         val optionButtons = listOf(
-            binding!!.optionA,
-            binding!!.optionB,
-            binding!!.optionC,
-            binding!!.optionD,
-            binding!!.optionE,
-            binding!!.optionF,
-            binding!!.optionG,
-            binding!!.optionH,
-            binding!!.optionI,
-            binding!!.optionJ
+            binding!!.optionA, binding!!.optionB, binding!!.optionC, binding!!.optionD,
+            binding!!.optionE, binding!!.optionF, binding!!.optionG, binding!!.optionH,
+            binding!!.optionI, binding!!.optionJ
         )
 
         val labels = listOf("A", "B", "C", "D", "E", "F", "G", "H", "I", "J")
@@ -114,8 +115,9 @@ class MCQTENFragment : Fragment() {
     }
 
     private fun updateOption(button: MaterialButton, value: Int, label: String) {
-        button.text = value.toString()
-        button.contentDescription = "Option $label. $value. Double tap to select."
+        val formatted = numberFormatter.format(value)
+        button.text = formatted
+        button.contentDescription = "Option $label. $formatted."
         button.setOnClickListener { showResultDialog(value == correctAnswer) }
     }
 
@@ -134,12 +136,17 @@ class MCQTENFragment : Fragment() {
 
         dialog.show()
 
-        // Auto-dismiss the dialog after 2 seconds
         Handler(Looper.getMainLooper()).postDelayed({
             dialog.dismiss()
+            speakNumber(correctAnswer)
             tts!!.speak("Next Question")
             generateNewQuestion()
         }, 2000)
+    }
+
+    private fun speakNumber(number: Int) {
+        val formattedNumber = numberFormatter.format(number)
+        tts!!.speak(formattedNumber)
     }
 
     override fun onDestroyView() {

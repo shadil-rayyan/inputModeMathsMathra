@@ -15,107 +15,92 @@ import com.example.codecompass.inputmodemathra.databinding.FragmentMCQFiveBindin
 import com.example.codecompass.inputmodemathra.enums.Difficulty
 import com.example.codecompass.inputmodemathra.utils.RandomValueGenerator
 import com.example.codecompass.inputmodemathra.utils.TTSUtility
+import com.example.codecompass.inputmodemathra.utils.settings.LocaleHelper
 import com.google.android.material.button.MaterialButton
-import java.util.Collections
+import java.text.NumberFormat
+import java.util.Locale
+
 class MCQFiveFragment : Fragment() {
-    private var binding: FragmentMCQFiveBinding? = null
-    private var random: RandomValueGenerator? = null
-    private var tts: TTSUtility? = null
+
+    private var _binding: FragmentMCQFiveBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var random: RandomValueGenerator
+    private lateinit var tts: TTSUtility
     private var correctAnswer = 0
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentMCQFiveBinding.inflate(inflater, container, false)
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentMCQFiveBinding.inflate(inflater, container, false)
         random = RandomValueGenerator()
-        tts = TTSUtility(requireActivity())
+        val languageCode = LocaleHelper.getLanguage(requireContext())
+        val locale = Locale(languageCode)
+        tts = TTSUtility(requireActivity(), locale)
         generateNewQuestion()
-        return binding!!.root
+        return binding.root
     }
 
     private fun generateNewQuestion() {
-        val topic = random!!.generateQuestionTopic()
-        val numbers: IntArray
-        val operator: String
-
-        when (topic) {
-            1 -> {
-                numbers = random!!.generateSubtractionValues(Difficulty.EASY)
-                operator = "-"
-            }
-            2 -> {
-                numbers = random!!.generateMultiplicationValues(Difficulty.EASY)
-                operator = "×"
-            }
-            3 -> {
-                numbers = random!!.generateDivisionValues(Difficulty.EASY)
-                operator = "÷"
-            }
-            else -> {
-                numbers = random!!.generateAdditionValues(Difficulty.EASY)
-                operator = "+"
-            }
+        val topic = random.generateQuestionTopic()
+        val (numbers, operator) = when (topic) {
+            1 -> random.generateSubtractionValues(Difficulty.EASY) to "-"
+            2 -> random.generateMultiplicationValues(Difficulty.EASY) to "×"
+            3 -> random.generateDivisionValues(Difficulty.EASY) to "÷"
+            else -> random.generateAdditionValues(Difficulty.EASY) to "+"
         }
 
         correctAnswer = numbers[2]
-        val questionText = "${numbers[0]} $operator ${numbers[1]} = ?"
-        binding!!.questionTv.text = questionText
-        binding!!.questionTv.contentDescription =
-            "Question. $questionText. Double tap to repeat. There are five options below."
+        val questionText = "${formatNumber(numbers[0])} $operator ${formatNumber(numbers[1])} = ?"
+        binding.questionTv.text = questionText
+        binding.questionTv.contentDescription = "Question. $questionText. There are five options below."
 
         Handler(Looper.getMainLooper()).postDelayed({
-            binding!!.questionTv.requestFocus()
-            binding!!.questionTv.announceForAccessibility(questionText)
+            binding.questionTv.requestFocus()
+            binding.questionTv.announceForAccessibility(questionText)
         }, 500)
 
         val choices = generateUniqueOptions(correctAnswer)
         val optionButtons = listOf(
-            binding!!.optionA,
-            binding!!.optionB,
-            binding!!.optionC,
-            binding!!.optionD,
-            binding!!.optionE
+            binding.optionA,
+            binding.optionB,
+            binding.optionC,
+            binding.optionD,
+            binding.optionE
         )
-
         val labels = listOf("A", "B", "C", "D", "E")
 
-        for (i in 0 until 5) {
+        for (i in optionButtons.indices) {
             updateOption(optionButtons[i], choices[i], labels[i])
         }
     }
 
     private fun generateUniqueOptions(correct: Int): List<Int> {
-        val uniqueOptions = mutableSetOf<Int>()
-        uniqueOptions.add(correct)
+        val uniqueOptions = mutableSetOf(correct)
 
         while (uniqueOptions.size < 5) {
-            val wrongOption = correct + random!!.generateNumberBetween(-20, 20)
+            val wrongOption = correct + random.generateNumberBetween(-20, 20)
             if (wrongOption != correct && wrongOption >= 0) {
                 uniqueOptions.add(wrongOption)
             }
         }
 
-        val options = uniqueOptions.toMutableList()
-        options.shuffle()
-        return options
+        return uniqueOptions.shuffled()
     }
 
     private fun updateOption(button: MaterialButton, value: Int, label: String) {
-        button.text = value.toString()
-        button.contentDescription = "Option $label. $value. Double tap to select."
-        button.setOnClickListener { showResultDialog(value == correctAnswer) }
+        val formattedValue = formatNumber(value)
+        button.text = formattedValue
+        button.contentDescription = "Option $label. $formattedValue."
+        button.setOnClickListener {
+            showResultDialog(value == correctAnswer)
+        }
     }
 
     private fun showResultDialog(isCorrect: Boolean) {
-        val message = if (isCorrect) "Right Answer" else "Wrong Answer"
+        val message = if (isCorrect) getString(R.string.right_answer) else getString(R.string.wrong_answer)
         val gifResource = if (isCorrect) R.drawable.right else R.drawable.wrong
-        tts!!.speak(message)
+        tts.speak(message)
 
         val dialogBinding = DialogResultBinding.inflate(layoutInflater)
         Glide.with(this).asGif().load(gifResource).into(dialogBinding.gifImageView)
@@ -129,14 +114,19 @@ class MCQFiveFragment : Fragment() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             dialog.dismiss()
-            tts!!.speak("Next Question")
+            tts.speak(getString(R.string.next_question))
             generateNewQuestion()
         }, 2000)
     }
 
+    private fun formatNumber(value: Int): String {
+        val locale: Locale = resources.configuration.locales.get(0)
+        return NumberFormat.getInstance(locale).format(value)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
-        binding = null
-        tts!!.shutdown()
+        _binding = null
+        tts.shutdown()
     }
 }

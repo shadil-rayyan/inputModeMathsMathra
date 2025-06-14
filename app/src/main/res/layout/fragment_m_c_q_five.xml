@@ -18,7 +18,7 @@
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="What is the value of:"
+            android:text="@string/instruction_text"
             android:textColor="@color/primaryText"
             android:textSize="24sp"
             android:layout_margin="10dp" />
@@ -28,7 +28,7 @@
             android:id="@+id/question_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="2 + 2 = ?"
+            android:text="@string/math_question_text"
             android:textColor="@color/primaryText"
             android:textAlignment="center"
             android:textSize="36sp"
@@ -36,46 +36,55 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:clickable="true"
-            android:contentDescription="Question. What is 2 plus 2? Double tap to repeat. There are ten options below." />
+            android:contentDescription="@string/question_content_desc" />
 
         <!-- Option Rows (3 per row) -->
         <!-- Row 1 -->
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:orientation="horizontal" android:gravity="center" android:layout_marginTop="100dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="100dp">
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/option_a"
                 style="@style/OptionButton"
-                android:text="10"
-                android:contentDescription="Option A. 10. Double tap to select." />
+                android:text="@string/option_a"
+                android:contentDescription="@string/option_desc_a" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/option_b"
                 style="@style/OptionButton"
-                android:text="20"
-                android:contentDescription="Option B. 20. Double tap to select." />
+                android:text="@string/option_b"
+                android:contentDescription="@string/option_desc_b" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/option_c"
                 style="@style/OptionButton"
-                android:text="30"
-                android:contentDescription="Option C. 30. Double tap to select." />
+                android:text="@string/option_c"
+                android:contentDescription="@string/option_desc_c" />
         </LinearLayout>
 
         <!-- Row 2 -->
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:orientation="horizontal" android:gravity="center" android:layout_marginTop="10dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="10dp">
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/option_d"
                 style="@style/OptionButton"
-                android:text="40"
-                android:contentDescription="Option D. 40. Double tap to select." />
+                android:text="@string/option_d"
+                android:contentDescription="@string/option_desc_d" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/option_e"
                 style="@style/OptionButton"
-                android:text="50"
-                android:contentDescription="Option E. 50. Double tap to select." />
-
+                android:text="@string/option_e"
+                android:contentDescription="@string/option_desc_e" />
         </LinearLayout>
-
-
-
     </LinearLayout>
 </ScrollView>

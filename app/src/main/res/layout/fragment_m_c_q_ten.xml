@@ -18,24 +18,20 @@
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="What is the value of:"
+            android:text="@string/mcq_instruction"
             android:layout_margin="20dp"
             android:textColor="@color/primaryText"
             android:textSize="20sp"
             android:layout_marginVertical="8dp" />
 
         <!-- Question -->
-
-        <!-- Options Grid (Flexible Rows) -->
-
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/question_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="12dp"
-            android:contentDescription="Question: What is 2 plus 2?"
             android:importantForAccessibility="yes"
-            android:text="2 + 2 = ?"
+            android:text="@string/mcq_question"
             android:textAlignment="center"
             android:textColor="@color/primaryText"
             android:textSize="32sp" />
@@ -52,59 +48,58 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/option_a"
                 style="@style/OptionButton"
-                android:text="10"
-                android:contentDescription="Option A: 10" />
+                android:text="@string/option_a"
+                android:contentDescription="@string/option_desc_a" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/option_b"
                 style="@style/OptionButton"
-                android:text="20"
-                android:contentDescription="Option B: 20" />
+                android:text="@string/option_b"
+                android:contentDescription="@string/option_desc_b" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/option_c"
                 style="@style/OptionButton"
-                android:text="30"
-                android:contentDescription="Option C: 30" />
+                android:text="@string/option_c"
+                android:contentDescription="@string/option_desc_c" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/option_d"
                 style="@style/OptionButton"
-                android:text="40"
-                android:contentDescription="Option D: 40" />
+                android:text="@string/option_d"
+                android:contentDescription="@string/option_desc_d" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/option_e"
                 style="@style/OptionButton"
-                android:text="50"
-                android:contentDescription="Option E: 50" />
+                android:text="@string/option_e"
+                android:contentDescription="@string/option_desc_e" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/option_f"
                 style="@style/OptionButton"
-                android:text="60"
-                android:contentDescription="Option F: 60" />
+                android:text="@string/option_f"
+                android:contentDescription="@string/option_desc_f" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/option_g"
                 style="@style/OptionButton"
-                android:text="70"
-                android:contentDescription="Option G: 70" />
+                android:text="@string/option_g"
+                android:contentDescription="@string/option_desc_g" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/option_h"
                 style="@style/OptionButton"
-                android:text="80"
-                android:contentDescription="Option H: 80" />
+                android:text="@string/option_h"
+                android:contentDescription="@string/option_desc_h" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/option_i"
                 style="@style/OptionButton"
-                android:text="90"
-                android:contentDescription="Option I: 90" />
+                android:text="@string/option_i"
+                android:contentDescription="@string/option_desc_i" />
         </GridLayout>
 
-        <!-- Extra Option Outside Grid -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -114,8 +109,8 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/option_j"
                 style="@style/OptionButton"
-                android:text="100"
-                android:contentDescription="Option J: 100" />
+                android:text="@string/option_j"
+                android:contentDescription="@string/option_desc_j" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

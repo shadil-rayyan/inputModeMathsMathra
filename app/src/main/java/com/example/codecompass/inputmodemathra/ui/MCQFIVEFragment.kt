@@ -15,6 +15,7 @@ import com.example.codecompass.inputmodemathra.databinding.FragmentMCQFiveBindin
 import com.example.codecompass.inputmodemathra.enums.Difficulty
 import com.example.codecompass.inputmodemathra.utils.RandomValueGenerator
 import com.example.codecompass.inputmodemathra.utils.TTSUtility
+import com.example.codecompass.inputmodemathra.utils.common.AccessibilityLocaleWrapper
 import com.example.codecompass.inputmodemathra.utils.settings.LocaleHelper
 import com.google.android.material.button.MaterialButton
 import java.text.NumberFormat
@@ -28,16 +29,21 @@ class MCQFiveFragment : Fragment() {
     private lateinit var random: RandomValueGenerator
     private lateinit var tts: TTSUtility
     private var correctAnswer = 0
+    private lateinit var locale: Locale
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMCQFiveBinding.inflate(inflater, container, false)
         random = RandomValueGenerator()
+
         val languageCode = LocaleHelper.getLanguage(requireContext())
-        val locale = Locale(languageCode)
+        locale = Locale(languageCode)
+
         tts = TTSUtility(requireActivity(), locale)
+
         generateNewQuestion()
+
         return binding.root
     }
 
@@ -53,7 +59,14 @@ class MCQFiveFragment : Fragment() {
         correctAnswer = numbers[2]
         val questionText = "${formatNumber(numbers[0])} $operator ${formatNumber(numbers[1])} = ?"
         binding.questionTv.text = questionText
-        binding.questionTv.contentDescription = "Question. $questionText. There are five options below."
+
+        // Compose localized content description for TalkBack
+        val questionContentDesc = getString(R.string.question_prefix) + ". " +
+                questionText + ". " + getString(R.string.option_hint_five)
+        AccessibilityLocaleWrapper.setLocalizedContentDescription(requireContext(), binding.questionTv, questionContentDesc)
+
+        // Speak question via TTS in selected locale
+        tts.speak(questionText)
 
         Handler(Looper.getMainLooper()).postDelayed({
             binding.questionTv.requestFocus()
@@ -91,7 +104,10 @@ class MCQFiveFragment : Fragment() {
     private fun updateOption(button: MaterialButton, value: Int, label: String) {
         val formattedValue = formatNumber(value)
         button.text = formattedValue
-        button.contentDescription = "Option $label. $formattedValue."
+
+        val optionDescription = getString(R.string.option_label, label, formattedValue)
+        AccessibilityLocaleWrapper.setLocalizedContentDescription(requireContext(), button, optionDescription)
+
         button.setOnClickListener {
             showResultDialog(value == correctAnswer)
         }
@@ -120,7 +136,6 @@ class MCQFiveFragment : Fragment() {
     }
 
     private fun formatNumber(value: Int): String {
-        val locale: Locale = resources.configuration.locales.get(0)
         return NumberFormat.getInstance(locale).format(value)
     }
 

@@ -20,7 +20,8 @@
             android:text="@string/question_text"
             android:textSize="36sp"
             android:textColor="@color/primaryText"
-            android:layout_marginBottom="24dp" />
+            android:layout_marginBottom="24dp"
+            android:contentDescription="@string/question_text" />
 
         <!-- Answer Display -->
         <TextView
@@ -30,7 +31,8 @@
             android:text=""
             android:textSize="32sp"
             android:textColor="@color/primaryText"
-            android:layout_marginBottom="32dp" />
+            android:layout_marginBottom="32dp"
+            android:contentDescription="@string/answer_display_desc" />
 
         <!-- Numeric Dialpad -->
         <GridLayout
@@ -42,23 +44,49 @@
             android:layout_gravity="center">
 
             <!-- Row 1 -->
-            <Button android:id="@+id/btn_7" style="@style/DialpadButton" android:text="@string/num_7" />
-            <Button android:id="@+id/btn_8" style="@style/DialpadButton" android:text="@string/num_8" />
-            <Button android:id="@+id/btn_9" style="@style/DialpadButton" android:text="@string/num_9" />
+            <Button android:id="@+id/btn_7" style="@style/DialpadButton"
+                android:text="@string/num_7"
+                android:contentDescription="@string/desc_btn_7" />
+
+            <Button android:id="@+id/btn_8" style="@style/DialpadButton"
+                android:text="@string/num_8"
+                android:contentDescription="@string/desc_btn_8" />
+
+            <Button android:id="@+id/btn_9" style="@style/DialpadButton"
+                android:text="@string/num_9"
+                android:contentDescription="@string/desc_btn_9" />
 
             <!-- Row 2 -->
-            <Button android:id="@+id/btn_4" style="@style/DialpadButton" android:text="@string/num_4" />
-            <Button android:id="@+id/btn_5" style="@style/DialpadButton" android:text="@string/num_5" />
-            <Button android:id="@+id/btn_6" style="@style/DialpadButton" android:text="@string/num_6" />
+            <Button android:id="@+id/btn_4" style="@style/DialpadButton"
+                android:text="@string/num_4"
+                android:contentDescription="@string/desc_btn_4" />
+
+            <Button android:id="@+id/btn_5" style="@style/DialpadButton"
+                android:text="@string/num_5"
+                android:contentDescription="@string/desc_btn_5" />
+
+            <Button android:id="@+id/btn_6" style="@style/DialpadButton"
+                android:text="@string/num_6"
+                android:contentDescription="@string/desc_btn_6" />
 
             <!-- Row 3 -->
-            <Button android:id="@+id/btn_1" style="@style/DialpadButton" android:text="@string/num_1" />
-            <Button android:id="@+id/btn_2" style="@style/DialpadButton" android:text="@string/num_2" />
-            <Button android:id="@+id/btn_3" style="@style/DialpadButton" android:text="@string/num_3" />
+            <Button android:id="@+id/btn_1" style="@style/DialpadButton"
+                android:text="@string/num_1"
+                android:contentDescription="@string/desc_btn_1" />
+
+            <Button android:id="@+id/btn_2" style="@style/DialpadButton"
+                android:text="@string/num_2"
+                android:contentDescription="@string/desc_btn_2" />
+
+            <Button android:id="@+id/btn_3" style="@style/DialpadButton"
+                android:text="@string/num_3"
+                android:contentDescription="@string/desc_btn_3" />
 
             <!-- Row 4 -->
             <View android:layout_width="80dp" android:layout_height="80dp" />
-            <Button android:id="@+id/btn_0" style="@style/DialpadButton" android:text="@string/num_0" />
+            <Button android:id="@+id/btn_0" style="@style/DialpadButton"
+                android:text="@string/num_0"
+                android:contentDescription="@string/desc_btn_0" />
             <View android:layout_width="80dp" android:layout_height="80dp" />
         </GridLayout>
 
@@ -66,6 +94,7 @@
         <Button
             android:id="@+id/submit_btn"
             style="@style/SubmitButton"
-            android:text="@string/submit" />
+            android:text="@string/submit"
+            android:contentDescription="@string/desc_submit" />
     </LinearLayout>
 </FrameLayout>

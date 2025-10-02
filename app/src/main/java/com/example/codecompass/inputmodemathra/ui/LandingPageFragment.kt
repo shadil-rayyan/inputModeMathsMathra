@@ -102,9 +102,9 @@ class LandingPageFragment : Fragment() {
                 )
             }
         }
-
+        //Quit the app button
         binding!!.quitButton.setOnClickListener { v ->
-            requireActivity().finish() // Quit the app
+            requireActivity().finish()
         }
 
 

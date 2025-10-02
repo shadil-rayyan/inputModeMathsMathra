@@ -20,6 +20,7 @@ import com.example.codecompass.inputmodemathra.databinding.FragmentSpinnerBindin
 import com.example.codecompass.inputmodemathra.enums.Difficulty
 import com.example.codecompass.inputmodemathra.utils.RandomValueGenerator
 import com.example.codecompass.inputmodemathra.utils.TTSUtility
+import com.example.codecompass.inputmodemathra.utils.common.AccessibilityLocaleWrapper
 import com.example.codecompass.inputmodemathra.utils.settings.LocaleHelper
 import java.text.NumberFormat
 import java.util.Locale
@@ -34,7 +35,6 @@ class SpinnerFragment : Fragment() {
     private var correctAnswer: Int = 0
     private val numberPickers = mutableListOf<NumberPicker>()
 
-    // Gesture detector for custom swipe navigation
     private lateinit var gestureDetector: GestureDetectorCompat
     private var focusedIndex = 0
 
@@ -53,7 +53,6 @@ class SpinnerFragment : Fragment() {
         _binding = FragmentSpinnerBinding.inflate(inflater, container, false)
 
         setupGestureDetection()
-
         generateNewQuestion()
         return binding.root
     }
@@ -75,10 +74,8 @@ class SpinnerFragment : Fragment() {
                 if (Math.abs(diffX) > Math.abs(diffY)) {
                     if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
                         if (diffX > 0) {
-                            // Swipe right - move focus to previous picker
                             moveFocusToPrevious()
                         } else {
-                            // Swipe left - move focus to next picker
                             moveFocusToNext()
                         }
                         return true
@@ -88,7 +85,6 @@ class SpinnerFragment : Fragment() {
             }
         })
 
-        // Attach touch listener to the container holding the NumberPickers
         binding.spinnerContainer.setOnTouchListener { _, event ->
             gestureDetector.onTouchEvent(event)
             true
@@ -111,7 +107,7 @@ class SpinnerFragment : Fragment() {
 
     private fun announceFocusedPicker() {
         val picker = numberPickers[focusedIndex]
-        val announcement = "Digit ${focusedIndex + 1}, currently ${picker.value}"
+        val announcement = "Digit ${focusedIndex + 1} of ${numberPickers.size}, currently ${picker.value}"
         tts.speak(announcement)
     }
 
@@ -119,7 +115,6 @@ class SpinnerFragment : Fragment() {
         val values = random.generateAdditionValues(Difficulty.EASY)
         correctAnswer = values[2]
 
-        // Get current locale
         val languageCode = LocaleHelper.getLanguage(requireContext())
         val locale = Locale(languageCode)
         val nf = NumberFormat.getInstance(locale)
@@ -128,10 +123,11 @@ class SpinnerFragment : Fragment() {
         val formattedNum2 = nf.format(values[1])
         val questionText = "$formattedNum1 + $formattedNum2 = ?"
 
-        val spokenQuestion = "${numberToSpokenDigits(values[0])} plus ${numberToSpokenDigits(values[1])} equals question mark"
+        val digitCount = correctAnswer.toString().length
+        val spokenQuestion = "${numberToSpokenDigits(values[0])} plus ${numberToSpokenDigits(values[1])} equals question mark. Answer has $digitCount digits."
 
         binding.questionTv.text = questionText
-        binding.questionTv.contentDescription = "Question: $spokenQuestion."
+        AccessibilityLocaleWrapper.setLocalizedContentDescription(requireContext(), binding.questionTv, "Question: $spokenQuestion.")
 
         Handler(Looper.getMainLooper()).postDelayed({
             binding.questionTv.requestFocus()
@@ -142,10 +138,7 @@ class SpinnerFragment : Fragment() {
         numberPickers.clear()
         focusedIndex = 0
 
-        val digitCount = correctAnswer.toString().length
-
         for (i in 0 until digitCount) {
-            val digitPosition = i
             val numberPicker = NumberPicker(requireContext()).apply {
                 minValue = 0
                 maxValue = 9
@@ -156,12 +149,16 @@ class SpinnerFragment : Fragment() {
                 ).apply {
                     setMargins(16, 0, 16, 0)
                 }
-                contentDescription = "Digit $digitPosition. Swipe up or down to select number."
+
                 descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
                 setFormatter { nf.format(it.toLong()) }
 
+                // Set localized content description for TalkBack
+                val desc = getString(R.string.digit_content_description, i + 1, digitCount)
+                AccessibilityLocaleWrapper.setLocalizedContentDescription(requireContext(), this, desc)
+
                 setOnValueChangedListener { _, _, newVal ->
-                    tts.speak("Digit $digitPosition: ${nf.format(newVal.toLong())}")
+                    tts.speak(desc.replace("%1\$d", "${i + 1}").replace("%2\$d", "$digitCount") + ": ${nf.format(newVal.toLong())}")
                 }
 
                 isFocusable = true
@@ -172,14 +169,16 @@ class SpinnerFragment : Fragment() {
             numberPickers.add(numberPicker)
         }
 
+
+        // Focus first digit and announce
         numberPickers.getOrNull(0)?.apply {
             requestFocus()
-            tts.speak("Digit 1, currently ${nf.format(value.toLong())}")
+            tts.speak("Digit 1 of $digitCount, currently ${nf.format(value.toLong())}")
         }
 
         binding.submitBtn.setOnClickListener {
             val userInputDigits = numberPickers.mapIndexed { index, picker ->
-                "Digit ${index + 1}: ${nf.format(picker.value.toLong())}"
+                "Digit ${index + 1} of $digitCount: ${nf.format(picker.value.toLong())}"
             }
             val spokenInput = userInputDigits.joinToString(", ")
 

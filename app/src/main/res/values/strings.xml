@@ -92,6 +92,23 @@
     <string name="num_8">8</string>
     <string name="num_9">9</string>
 
+    <!-- For accessibility description -->
+    <string name="answer_display_desc">Answer display</string>
+    <string name="desc_btn_0">zero</string>
+    <string name="desc_btn_1">one</string>
+    <string name="desc_btn_2">two</string>
+    <string name="desc_btn_3">Three</string>
+    <string name="desc_btn_4">four</string>
+    <string name="desc_btn_5">five</string>
+    <string name="desc_btn_6">six</string>
+    <string name="desc_btn_7">seven</string>
+    <string name="desc_btn_8">eight</string>
+    <string name="desc_btn_9">nine</string>
+    <string name="desc_submit">Answer display</string>
+    <string name="digit_content_description">Digit %1$d of %2$d. Swipe up or down to select number.</string>
+
+
+
     <string name="question_format">%1$s + %2$s = ?</string>
     <string name="question_desc">Question. %1$s plus %2$s equals what?</string>
     <string name="right_answer">Right Answer</string>
@@ -103,6 +120,8 @@
     <string name="option_label">Option %1$s. %2$s</string>
     <string name="option_hint_five">There are five options below.</string>
     <string name="question_desc_ten_options">Question: %1$s. There are ten options below.</string>
+    <string name="question_description">Math question. %1$s plus %2$s equals what?</string>
+
 
 
 

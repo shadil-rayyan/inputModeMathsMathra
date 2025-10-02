@@ -91,6 +91,23 @@
     <string name="num_8">8</string>
     <string name="num_9">9</string>
 
+
+    <!-- For accessibility description -->
+    <string name="answer_display_desc">ഉത്തരവും പ്രദർശിപ്പിക്കൽ</string>
+    <string name="desc_btn_0">പൂജ്യം</string>
+    <string name="desc_btn_1">ഒന്ന്</string>
+    <string name="desc_btn_2">രണ്ട്</string>
+    <string name="desc_btn_3">മൂന്ന്</string>
+    <string name="desc_btn_4">നാല്</string>
+    <string name="desc_btn_5">അഞ്ച്</string>
+    <string name="desc_btn_6">ആറ്</string>
+    <string name="desc_btn_7">ഏഴ്</string>
+    <string name="desc_btn_8">എട്ട്</string>
+    <string name="desc_btn_9">ഒൻപത്</string>
+    <string name="desc_submit">ഉത്തരമയച്ചൽ ബട്ടൺ</string>
+    <string name="digit_content_description">Dígito %1$d de %2$d. Desliza hacia arriba o abajo para seleccionar el número.</string>
+
+
     <string name="question_format">%1$s + %2$s = ?</string>
     <string name="question_desc">ചോദ്യം. %1$s ഉം %2$s ഉം ചേർത്താൽ എത്ര?</string>
     <string name="right_answer">ശരിയായ ഉത്തരം</string>
@@ -102,6 +119,8 @@
     <string name="option_label">ഓപ്ഷൻ %1$s. %2$s</string>
     <string name="option_hint_five">ചുവടെ അഞ്ച് ഓപ്ഷനുകൾ ഉണ്ട്.</string>
     <string name="question_desc_ten_options">ചോദ്യം: %1$s. താഴെ അഞ്ച് ഓപ്ഷനുകൾ ഉണ്ട്.</string>
+    <string name="question_description">ഗണിത ചോദ്യമാണ്. %1$s കൂട്ടിയാൽ %2$s എത്രമാണ്?</string>
+
 
 
 

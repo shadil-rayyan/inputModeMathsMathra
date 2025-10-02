@@ -17,6 +17,7 @@ import com.example.codecompass.inputmodemathra.databinding.DialogResultBinding
 import com.example.codecompass.inputmodemathra.databinding.FragmentMathQuizBinding
 import com.example.codecompass.inputmodemathra.enums.Difficulty
 import com.example.codecompass.inputmodemathra.utils.RandomValueGenerator
+import com.example.codecompass.inputmodemathra.utils.common.AccessibilityLocaleWrapper
 import java.text.NumberFormat
 import java.util.Locale
 
@@ -90,24 +91,27 @@ class MathQuizFragment : Fragment() {
         val formattedSecond = formatNumber(numbers[1])
 
         val questionText = "$formattedFirst + $formattedSecond = ?"
-        val questionDescription = "Math question. $formattedFirst plus $formattedSecond equals what?"
+
+        // Use string resource for localization (recommended)
+        val questionDescription = getString(R.string.question_description, formattedFirst, formattedSecond)
 
         binding.questionTv.text = questionText
-        binding.questionTv.contentDescription = questionDescription
-        binding.questionTv.accessibilityLiveRegion = View.ACCESSIBILITY_LIVE_REGION_POLITE
 
+        // ✅ Use AccessibilityLocaleWrapper to set localized description
+        AccessibilityLocaleWrapper.setLocalizedContentDescription(requireContext(), binding.questionTv, questionDescription)
+
+        // Clear previous answer
         binding.answerEt.setText("")
 
+        // ✅ Automatically set focus to question for TalkBack
         binding.questionTv.post {
+            binding.questionTv.requestFocus() // ensure it gets screen reader focus
             binding.questionTv.announceForAccessibility(questionDescription)
 
-            binding.answerEt.postDelayed({
-                binding.answerEt.requestFocus()
-                val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.showSoftInput(binding.answerEt, InputMethodManager.SHOW_IMPLICIT)
-            }, 1200)
+            
         }
     }
+
 
     private fun showResultDialog(isCorrect: Boolean) {
         val dialogBinding = DialogResultBinding.inflate(layoutInflater)
